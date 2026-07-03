@@ -4,7 +4,12 @@
     "city": "Chesapeake",
     "state": "VA"
   },
+
+  "purchasePrice": 474990,
+  "mortgageBalance": 423000,
+
   "lastUpdated": "2026-07-03",
+
   "values": {
     "realtor": 598573,
     "redfin": 601218,
