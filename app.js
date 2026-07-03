@@ -6,13 +6,8 @@ async function loadDashboard() {
 
     try {
 
-        const dataResponse = await fetch("./data.json");
-        if (!dataResponse.ok) throw new Error("Unable to load data.json");
-        const data = await dataResponse.json();
-
-        const historyResponse = await fetch("./history.json");
-        if (!historyResponse.ok) throw new Error("Unable to load history.json");
-        const history = await historyResponse.json();
+        const data = await fetch("./data.json").then(r => r.json());
+        const history = await fetch("./history.json").then(r => r.json());
 
         document.getElementById("address").textContent =
             `${data.property.name}, ${data.property.city}, ${data.property.state}`;
@@ -47,8 +42,8 @@ async function loadDashboard() {
 
             tbody.appendChild(tr);
 
-            if (value !== null && value !== undefined) {
-                total += Number(value);
+            if (value != null) {
+                total += value;
                 count++;
             }
 
@@ -59,39 +54,75 @@ async function loadDashboard() {
         document.getElementById("avg").textContent = money(average);
         document.getElementById("avg2").textContent = money(average);
 
-        if (typeof Chart !== "undefined" && Array.isArray(history) && history.length > 0) {
+        // Summary cards
 
-            const canvas = document.getElementById("historyChart");
+        document.getElementById("purchasePrice").textContent =
+            money(data.purchasePrice);
 
-            new Chart(canvas, {
-                type: "line",
-                data: {
-                    labels: history.map(h => h.date),
-                    datasets: [{
-                        label: "Average Value",
-                        data: history.map(h => h.average),
-                        borderWidth: 3,
-                        tension: 0.35,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
+        document.getElementById("mortgage").textContent =
+            money(data.mortgageBalance);
+
+        const equity = average - data.mortgageBalance;
+
+        document.getElementById("equity").textContent =
+            money(equity);
+
+        const firstValue = history[0].average;
+
+        const growth = ((average - firstValue) / firstValue) * 100;
+
+        document.getElementById("growth").textContent =
+            growth.toFixed(1) + "%";
+
+        // Chart
+
+        new Chart(document.getElementById("historyChart"), {
+
+            type: "line",
+
+            data: {
+
+                labels: history.map(h => h.date),
+
+                datasets: [{
+
+                    data: history.map(h => h.average),
+
+                    borderWidth: 3,
+
+                    tension: .35,
+
+                    fill: false
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
                     }
-                }
-            });
 
-        }
+                }
+
+            }
+
+        });
 
     }
+
     catch (err) {
+
         console.error(err);
         alert(err.message);
+
     }
 
 }
