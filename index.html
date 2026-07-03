@@ -7,15 +7,40 @@
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <div class="container">
 
-<div class="card">
+<div class="card hero">
 <h1>Property Value Tracker</h1>
 <div id="address" class="sub"></div>
 <div id="avg" class="value">$0</div>
 <div id="updated" class="updated"></div>
+</div>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<div class="stat-title">Purchase Price</div>
+<div id="purchasePrice" class="stat-value">$0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Estimated Equity</div>
+<div id="equity" class="stat-value">$0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">Mortgage Balance</div>
+<div id="mortgage" class="stat-value">$0</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-title">12-Month Growth</div>
+<div id="growth" class="stat-value">0%</div>
+</div>
+
 </div>
 
 <div class="card">
@@ -35,6 +60,7 @@
 <td id="avg2"></td>
 </tr>
 </tfoot>
+
 </table>
 </div>
 
@@ -45,6 +71,8 @@
 
 <div class="footer">
 Property Value Tracker
+</div>
+
 </div>
 
 <script src="app.js"></script>
