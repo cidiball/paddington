@@ -1,0 +1,15 @@
+{
+  "property": {
+    "name": "904 Paddington Ct",
+    "city": "Chesapeake",
+    "state": "VA"
+  },
+  "lastUpdated": "2026-07-03",
+  "values": {
+    "realtor": 598573,
+    "redfin": 601218,
+    "zillow": 604200,
+    "trulia": 604200,
+    "homes": null
+  }
+}
