@@ -4,110 +4,96 @@ const money = n => n == null ? "—" : "$" + Number(n).toLocaleString();
 
 async function loadDashboard() {
 
-  const data = await fetch("data.json").then(r => r.json());
-  const history = await fetch("history.json").then(r => r.json());
+    try {
 
-  document.getElementById("address").textContent =
-    `${data.property.name}, ${data.property.city}, ${data.property.state}`;
+        const dataResponse = await fetch("./data.json");
+        if (!dataResponse.ok) throw new Error("Unable to load data.json");
+        const data = await dataResponse.json();
 
-  document.getElementById("updated").textContent =
-    `Last Updated: ${data.lastUpdated}`;
+        const historyResponse = await fetch("./history.json");
+        if (!historyResponse.ok) throw new Error("Unable to load history.json");
+        const history = await historyResponse.json();
 
-  const labels = {
-    realtor: "Realtor.com",
-    redfin: "Redfin",
-    zillow: "Zillow",
-    trulia: "Trulia",
-    homes: "Homes.com"
-  };
+        document.getElementById("address").textContent =
+            `${data.property.name}, ${data.property.city}, ${data.property.state}`;
 
-  const tbody = document.getElementById("rows");
-  tbody.innerHTML = "";
+        document.getElementById("updated").textContent =
+            `Last Updated: ${data.lastUpdated}`;
 
-  let total = 0;
-  let count = 0;
+        const labels = {
+            realtor: "Realtor.com",
+            redfin: "Redfin",
+            zillow: "Zillow",
+            trulia: "Trulia",
+            homes: "Homes.com"
+        };
 
-  for (const key in labels) {
+        const tbody = document.getElementById("rows");
+        tbody.innerHTML = "";
 
-    const value = data.values[key];
+        let total = 0;
+        let count = 0;
 
-    if (value !== null) {
-      total += value;
-      count++;
-    }
+        for (const key of Object.keys(labels)) {
 
-    const row = document.createElement("tr");
+            const value = data.values[key];
 
-    row.innerHTML = `
-      <td>${labels[key]}</td>
-      <td>${money(value)}</td>
-    `;
+            const tr = document.createElement("tr");
 
-    tbody.appendChild(row);
+            tr.innerHTML = `
+                <td>${labels[key]}</td>
+                <td>${money(value)}</td>
+            `;
 
-  }
+            tbody.appendChild(tr);
 
-  const average = Math.round(total / count);
-
-  document.getElementById("avg").textContent = money(average);
-  document.getElementById("avg2").textContent = money(average);
-
-  if (typeof Chart !== "undefined" && history.length > 0) {
-
-    const ctx = document.getElementById("historyChart");
-
-    new Chart(ctx, {
-
-      type: "line",
-
-      data: {
-
-        labels: history.map(item => item.date),
-
-        datasets: [{
-
-          label: "Average Value",
-
-          data: history.map(item => item.average),
-
-          borderWidth: 3,
-
-          tension: 0.35,
-
-          fill: false
-
-        }]
-
-      },
-
-      options: {
-
-        responsive: true,
-
-        maintainAspectRatio: false,
-
-        plugins: {
-
-          legend: {
-
-            display: false
-
-          }
+            if (value !== null && value !== undefined) {
+                total += Number(value);
+                count++;
+            }
 
         }
 
-      }
+        const average = Math.round(total / count);
 
-    });
+        document.getElementById("avg").textContent = money(average);
+        document.getElementById("avg2").textContent = money(average);
 
-  }
+        if (typeof Chart !== "undefined" && Array.isArray(history) && history.length > 0) {
+
+            const canvas = document.getElementById("historyChart");
+
+            new Chart(canvas, {
+                type: "line",
+                data: {
+                    labels: history.map(h => h.date),
+                    datasets: [{
+                        label: "Average Value",
+                        data: history.map(h => h.average),
+                        borderWidth: 3,
+                        tension: 0.35,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+        }
+
+    }
+    catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
 
 }
 
-loadDashboard().catch(error => {
-
-  console.error(error);
-
-  alert(error);
-
-});
+loadDashboard();
