@@ -1,1 +1,50 @@
-
+[
+  {
+    "date": "Aug 2025",
+    "average": 575800
+  },
+  {
+    "date": "Sep 2025",
+    "average": 578600
+  },
+  {
+    "date": "Oct 2025",
+    "average": 581400
+  },
+  {
+    "date": "Nov 2025",
+    "average": 584900
+  },
+  {
+    "date": "Dec 2025",
+    "average": 587700
+  },
+  {
+    "date": "Jan 2026",
+    "average": 590500
+  },
+  {
+    "date": "Feb 2026",
+    "average": 593300
+  },
+  {
+    "date": "Mar 2026",
+    "average": 596800
+  },
+  {
+    "date": "Apr 2026",
+    "average": 599900
+  },
+  {
+    "date": "May 2026",
+    "average": 601100
+  },
+  {
+    "date": "Jun 2026",
+    "average": 601800
+  },
+  {
+    "date": "Jul 2026",
+    "average": 602048
+  }
+]
