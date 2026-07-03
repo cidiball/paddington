@@ -42,39 +42,6 @@ td:last-child{text-align:right}
 <div class="footer">Powered by GitHub Pages</div>
 </div>
 
-<script>
-fetch("data.json")
-.then(r=>r.json())
-.then(data=>{
- const fmt=n=>n==null?"—":"$"+n.toLocaleString();
- document.getElementById("address").textContent=
-   `${data.property.name}, ${data.property.city}, ${data.property.state}`;
- document.getElementById("updated").textContent=
-   "Last Updated: "+data.lastUpdated;
-
- const names={
-   realtor:"Realtor.com",
-   redfin:"Redfin",
-   zillow:"Zillow",
-   trulia:"Trulia",
-   homes:"Homes.com"
- };
-
- let total=0,count=0;
- const tbody=document.getElementById("rows");
-
- Object.keys(names).forEach(k=>{
-   const v=data.values[k];
-   if(v!=null){total+=v;count++;}
-   const tr=document.createElement("tr");
-   tr.innerHTML=`<td>${names[k]}</td><td>${fmt(v)}</td>`;
-   tbody.appendChild(tr);
- });
-
- const avg=Math.round(total/count);
- document.getElementById("avg").textContent=fmt(avg);
- document.getElementById("avg2").textContent=fmt(avg);
-});
-</script>
+<script src="app.js"></script>
 </body>
 </html>
