@@ -11,9 +11,9 @@ body{
 }
 
 .container{
-    width:95%;
     max-width:1200px;
     margin:28px auto;
+    padding:0 16px;
 }
 
 .card{
@@ -24,21 +24,27 @@ body{
     margin-bottom:22px;
 }
 
+.hero{
+    padding:32px;
+}
+
 h1{
     font-size:64px;
     line-height:1.05;
-    margin-bottom:10px;
+    margin-bottom:8px;
+    color:#1f2937;
 }
 
 h2{
     font-size:26px;
     margin-bottom:18px;
+    color:#1f2937;
 }
 
 .sub{
     font-size:20px;
     color:#667085;
-    margin-bottom:26px;
+    margin-bottom:24px;
 }
 
 .value{
@@ -53,48 +59,44 @@ h2{
     color:#667085;
 }
 
-.summary-grid{
+/* ---------- Summary Cards ---------- */
+
+.stats-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:16px;
     margin-bottom:22px;
 }
 
-.summary-card{
+.stat-card{
     background:#fff;
     border-radius:18px;
     box-shadow:0 8px 22px rgba(0,0,0,.08);
     padding:18px 20px;
-    min-height:130px;
+    min-height:126px;
 
     display:flex;
     flex-direction:column;
 }
 
-.summary-title{
+.stat-title{
     font-size:14px;
     font-weight:700;
     letter-spacing:.08em;
     text-transform:uppercase;
     color:#6b7280;
-
     line-height:1.15;
 }
 
-.summary-value{
+.stat-value{
     margin-top:auto;
-
-    display:flex;
-    align-items:flex-end;
-
-    min-height:46px;
-
     font-size:28px;
     font-weight:700;
     color:#1f2937;
-
     line-height:1;
 }
+
+/* ---------- Table ---------- */
 
 table{
     width:100%;
@@ -103,15 +105,15 @@ table{
 
 th{
     text-align:left;
-    font-size:20px;
     padding:16px 0;
+    font-size:20px;
     border-bottom:2px solid #e5e7eb;
 }
 
 td{
     padding:18px 0;
-    border-bottom:1px solid #e5e7eb;
     font-size:18px;
+    border-bottom:1px solid #e5e7eb;
 }
 
 th:last-child,
@@ -124,17 +126,24 @@ tfoot td{
     font-weight:700;
 }
 
+/* ---------- Chart ---------- */
+
 canvas{
     width:100%!important;
     height:320px!important;
 }
 
+/* ---------- Footer ---------- */
+
 .footer{
     text-align:center;
     color:#6b7280;
     font-size:16px;
-    padding:12px 0 24px;
+    margin-top:24px;
+    padding-bottom:20px;
 }
+
+/* ---------- Mobile ---------- */
 
 @media (max-width:900px){
 
@@ -143,10 +152,10 @@ canvas{
     }
 
     .value{
-        font-size:54px;
+        font-size:56px;
     }
 
-    .summary-grid{
+    .stats-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
@@ -154,7 +163,7 @@ canvas{
 
 @media (max-width:600px){
 
-    .summary-grid{
+    .stats-grid{
         grid-template-columns:1fr;
     }
 
